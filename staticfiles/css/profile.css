@@ -1,0 +1,97 @@
+
+.mainDiv{
+    margin-top: 100px;
+}
+.nav-link{
+    display: flex;
+    align-items: center;
+}
+.myCardDiv{
+    display: flex;
+    justify-content: center;
+    /* margin-top: 70px; */
+}
+.userDetail{
+    display: flex;
+    align-items: center;
+}
+.followersDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: max-content;
+    /* border: 2px solid rgb(139, 133, 133); */
+    
+}
+.editDiv{
+    margin:  20px 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name{
+    margin-top: 20px;
+}
+
+.profileDiv{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 10px;
+}
+
+.preview{
+    display: none;
+}
+input[type="file"]{
+    display: none;
+}
+
+.MainImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid rgb(187, 184, 184);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    cursor: pointer;
+    font-size: larger;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: .5s ease-in-out;
+}
+
+.MainImage:hover{
+    color: whitesmoke;
+    background-color: black;
+}
+
+.postDiv{
+    display: flex;
+    justify-content: center;
+}
+.imgContainer{
+    position: relative;
+    
+}
+
+#deleteIcon{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+    font-size: 30px;
+    cursor: pointer;
+}
+.textEditDiv{
+    /* border: 2px solid red; */
+    margin-top: 20px !important;
+}
+
+input[type='text']{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}

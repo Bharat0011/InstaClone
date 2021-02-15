@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <title>Insta Feeds</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="{% static 'images/instalogo.jpg' %}" width="40" height="40"
+                    alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'mainPage' %}">
+                            <span class="material-icons">
+                                home
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{% url 'explore' %}">
+                            <span class="material-icons">
+                                explore
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_page' %}">
+                            <span class="material-icons">
+                                account_circle
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="material-icons">
+                                settings
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Change Password</a></li>
+                            <li><a class="dropdown-item" href="https://www.instagram.com/__bharat_choudhary__/">Contact</a></li>
+                            
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout'%}">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'post_page' %}">
+
+                            <span class="material-icons">
+                                add_a_photo
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contents -->
+    <div class="container mainDiv">
+        {% for post in user_posts %}
+        <div class="myCardDiv mb-5" id="postDiv-{{post.id}}">
+            <div class="card myCard" style="width: 40rem;">
+                <div class="userDetail card-header">
+                    <a href="{% url 'UpdateProfile' post.curr_profile.pk %}"><img
+                            src="{{post.curr_profile.profile_pic}}" width="30" height="30"
+                            style="border-radius: 50%; border:1px solid rgb(187, 184, 184);"></a>
+                    <div class="row userName col-12 mx-1 p-0">
+                        <a href="{% url 'UpdateProfile' post.curr_profile.pk %}"
+                            style="text-decoration: none; color: black;"><strong
+                                class="col-12">{{post.curr_user}}</strong></a>
+                    </div>
+                    {% if post.curr_user == request.user %}
+                    <div class="delDiv">
+                        <a href="{% url 'delPost' post.id %}" class="delete" id="{{post.id}}"
+                            style="text-decoration: none; color: black;">
+                            <span class="material-icons delIcon">
+                                delete_outline
+                            </span></a>
+                    </div>
+                    {% endif %}
+                </div>
+                <img src="{{post.post_image}}" width="100" height="400" class="card-img-top" alt="...">
+                <div class="card-body" id="likeid">
+                    {% if post in liked_post %}
+                    <span class="material-icons likeIcon" id="{{post.id}}">
+                        <a href="{% url 'liked' %}" id="like-{{post.id}}" class="likeIconclass"
+                            style="text-decoration: none; color: red;">
+                            favorite
+                        </a>
+                    </span>
+                    {% else %}
+                    <span class="material-icons likeIcon" id="{{post.id}}">
+                        <a href="{% url 'liked' %}" id="like-{{post.id}}" class="likeIconclass"
+                            style="text-decoration: none; color: black;">
+                            favorite_border
+                        </a>
+                    </span>
+                    {% endif %}
+                    <div class="d-flex align-items-center">
+                        <strong class="p-0 mb-1 mt-1 likeClass" id="likescount-{{post.id}}">
+                            {{ post.post_likes }}</strong>
+                        <strong class="mx-1 mt-0">likes</strong>
+                    </div>
+                    <p class="card-text"><a href="{% url 'UpdateProfile' post.curr_profile.pk %}"
+                            style="text-decoration: none; color: black;"><strong>{{post.curr_user}}</strong></a>
+                        {{post.post_caption}}</p>
+                    <small class="text-muted p-0 m-0">{{post.DateandTime}}</small>
+
+                    <div class="commentDiv mt-2">
+                        {% if not post.comments.all %}
+                        <p class="mx-2 pb-0 mb-0 d-flex align-items-center" style="color: rgb(202, 200, 200) ;">No
+                            comments added</p>
+                        {% else %}
+
+                        {% for c in post.comments.all %}
+                        <div class="d-flex justify-content-start">
+                            <strong class="mx-2 pb-0 mb-0">{{c.curr_user.username}}</strong>
+                            <p class="pb-0 mb-0">{{c.comment}}</p>
+                        </div>
+                        {% endfor %}
+
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <form action="{% url 'comments_section' %}" class="commentSection">
+                        {% csrf_token %}
+                        <input type="text" class="commentText" name="commentName" id="inputText-{{post.id}}"
+                            autocomplete="off" placeholder="Add a Commment" value="" required>
+                        <input type="submit" value="Post" id="{{ post.id }}" class="btn postBtn">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        $(".likeIcon").click(function (e) {
+            e.preventDefault();
+            var id = this.id
+            var hrefVal = $('.likeIcon').find('.likeIconclass').attr('href');
+            console.log(id)
+            console.log(hrefVal);
+            var count = $('#likescount-' + id).text();
+            intCount = parseInt(count)
+            console.log("fgfefed", count);
+            let result;
+            $.ajax({
+                url: hrefVal,
+                data: { 'liked_id': id },
+                success: function (response) {
+                    console.log(response);
+                    if (response.liked) {
+                        $('#like-' + id).html('favorite');
+                        $('#like-' + id).css('color', 'red');
+                        result = intCount + 1;
+
+                    }
+                    else {
+                        $('#like-' + id).html('favorite_border');
+                        $('#like-' + id).css('color', 'black');
+                        result = intCount - 1;
+
+                    }
+                    $('#likescount-' + id).text(result)
+
+                },
+            })
+
+        })
+    </script>
+
+
+    <script>
+
+        $(".commentSection").on('click', '.postBtn', function (e) {
+
+            e.preventDefault();
+            var id = this.id
+            console.log(id);
+            var inputId = $('#inputText-' + id)
+            var val = inputId.val()
+            var hrefVal = $('.commentSection').attr('action');
+            console.log(val)
+            console.log(hrefVal);
+            $.ajax({
+                url: hrefVal,
+                data: {
+                    'inputValue': val,
+                    'postId': id,
+                }
+
+            })
+            inputId.val("")
+            location.reload();
+        })
+    </script>
+
+    <script>
+        $('.delete').click(function (e) {
+            var id = this.id;
+            var href = this.href;
+            console.log(id, href);
+            e.preventDefault();
+
+            $.ajax({
+                url: href,
+                data: {},
+            })
+
+            $('#postDiv-' + id).fadeOut(1000);
+        });
+
+    </script>
+
+    <script src="{% static 'js/popup.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

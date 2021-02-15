@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+  <!-- <title>Login Form Design | CodeLab</title> -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>Signup</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="title">
+      Signup</div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <p style=" color: red; text-align:center" >{{error}}</p>
+      <div class="field">
+        <input type="text" name="username" required>
+        <label>Username</label>
+      </div>
+      <div class="field">
+        <input type="text" name="fname" required>
+        <label>First Name</label>
+      </div>
+      <div class="field">
+        <input type="text" name="lname" required>
+        <label>Last Name</label>
+      </div>
+      <div class="field">
+        <input type="email" name="email" required>
+        <label>Email ID</label>
+      </div>
+      <div class="field">
+        <input type="password" name="password1" required>
+        <label>Password</label>
+      </div>
+      <div class="field">
+        <input type="password" name="password2" required>
+        <label>Confirm Password</label>
+      </div>
+      <div class="field">
+        <input type="submit" value="Signup">
+      </div>
+      <div class="signup-link">
+        Already Registered? <a href="{% url 'login' %}">Login</a></div>
+    </form>
+  </div>
+</body>
+
+</html>

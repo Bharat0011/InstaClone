@@ -1,0 +1,25 @@
+.mainDiv{
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nav-link{
+    display: flex;
+    align-items: center;
+}
+.MycardTitle{
+    display: flex;
+    align-items: center;
+}
+.myCard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.viewBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
